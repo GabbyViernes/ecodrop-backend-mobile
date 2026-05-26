@@ -16,6 +16,28 @@ class User(UserBase):
     class Config:
         from_attributes = True
 
+class UserProfileBase(BaseModel):
+    display_name: Optional[str] = None
+    phone_number: Optional[str] = None
+    total_eco_points: int = 0
+
+class UserProfileCreate(UserProfileBase):
+    pass
+
+class UserProfileUpdate(BaseModel):
+    display_name: Optional[str] = None
+    phone_number: Optional[str] = None
+
+class UserProfile(UserProfileBase):
+    id: int
+    user_id: int
+
+    class Config:
+        from_attributes = True
+
+class UserWithProfile(User):
+    profile: Optional[UserProfile] = None
+
 class Token(BaseModel):
     access_token: str
     token_type: str
